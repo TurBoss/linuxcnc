@@ -622,21 +622,21 @@ static void process_probe_inputs(void)
 
     // trigger when the probe clears, instead of the usual case of triggering when it trips
     char probe_whenclears = !!(probe_type & 2);
-    
+
     /* read probe input */
     emcmotStatus->probeVal = !!*(emcmot_hal_data->probe_input);
     if (emcmotStatus->probing) {
         /* check if the probe has been tripped */
         if (emcmotStatus->probeVal ^ probe_whenclears) {
             /* remember the current position */
-            emcmotStatus->probedPos = emcmotStatus->carte_pos_fb; 
+            emcmotStatus->probedPos = emcmotStatus->carte_pos_fb;
             /* stop! */
             emcmotStatus->probing = 0;
             emcmotStatus->probeTripped = 1;
             tpAbort(&emcmotDebug->coord_tp);
         /* check if the probe hasn't tripped, but the move finished */
         } else if (GET_MOTION_INPOS_FLAG() && tpQueueDepth(&emcmotDebug->coord_tp) == 0) {
-            /* we are already stopped, but we need to remember the current 
+            /* we are already stopped, but we need to remember the current
                position here, because it will still be queried */
             emcmotStatus->probedPos = emcmotStatus->carte_pos_fb;
             emcmotStatus->probing = 0;
@@ -981,7 +981,7 @@ static void handle_jjogwheels(void)
 	}
 
         // disallow accel bogus fractions
-        if (    (*(joint_data->jjog_accel_fraction) > 1) 
+        if (    (*(joint_data->jjog_accel_fraction) > 1)
              || (*(joint_data->jjog_accel_fraction) < 0) ) {
             jaccel_limit = joint->acc_limit;
         } else {
@@ -1506,7 +1506,7 @@ static void get_pos_cmds(long period)
     /* check command against soft limits */
     /* This is a backup check, it should be impossible to command
 	a move outside the soft limits.  However there is at least
-	two cases that isn't caught upstream: 
+	two cases that isn't caught upstream:
 	1) if an arc has both endpoints inside the limits, but the curve extends outside,
 	2) if homing params are wrong then after homing joint pos_cmd are outside,
 	the upstream checks will pass it.
@@ -2154,6 +2154,7 @@ static void update_status(void)
     emcmotStatus->depth = tpQueueDepth(&emcmotDebug->coord_tp);
     emcmotStatus->activeDepth = tpActiveDepth(&emcmotDebug->coord_tp);
     emcmotStatus->id = tpGetExecId(&emcmotDebug->coord_tp);
+    emcmotStatus->tag = tpGetExecTag(&emcmotDebug->coord_tp)
     //KLUDGE add an API call for this
     emcmotStatus->reverse_run = emcmotDebug->coord_tp.reverse_run;
     emcmotStatus->motionType = tpGetMotionType(&emcmotDebug->coord_tp);

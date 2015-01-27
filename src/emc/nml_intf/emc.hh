@@ -20,6 +20,7 @@
 #include "nml_type.hh"
 #include "motion_types.h"
 #include <stdint.h>
+#include "modal_state.hh"
 
 // Forward class declarations
 class EMC_JOINT_STAT;
@@ -389,6 +390,7 @@ extern int emcJointUpdate(EMC_JOINT_STAT stat[], int numJoints);
 extern int emcTrajSetJoints(int joints);
 extern int emcTrajSetAxes(int axismask);
 extern int emcTrajSetSpindles(int spindles);
+extern int emcTrajUpdateTag(StateTag const &tag);
 extern int emcTrajSetUnits(double linearUnits, double angularUnits);
 extern int emcTrajSetCycleTime(double cycleTime);
 extern int emcTrajSetMode(int traj_mode);

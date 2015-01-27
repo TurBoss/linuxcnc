@@ -230,23 +230,23 @@ STATIC int inRange(EmcPose pos, int id, char *move_type)
     emcmot_joint_t *joint;
     int in_range = 1;
 
-    if(check_axis_constraint(pos.tran.x, id, move_type, 0, 'X') == 0) 
+    if(check_axis_constraint(pos.tran.x, id, move_type, 0, 'X') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.tran.y, id, move_type, 1, 'Y') == 0) 
+    if(check_axis_constraint(pos.tran.y, id, move_type, 1, 'Y') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.tran.z, id, move_type, 2, 'Z') == 0) 
+    if(check_axis_constraint(pos.tran.z, id, move_type, 2, 'Z') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.a, id, move_type, 3, 'A') == 0) 
+    if(check_axis_constraint(pos.a, id, move_type, 3, 'A') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.b, id, move_type, 4, 'B') == 0) 
+    if(check_axis_constraint(pos.b, id, move_type, 4, 'B') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.c, id, move_type, 5, 'C') == 0) 
+    if(check_axis_constraint(pos.c, id, move_type, 5, 'C') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.u, id, move_type, 6, 'U') == 0) 
+    if(check_axis_constraint(pos.u, id, move_type, 6, 'U') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.v, id, move_type, 7, 'V') == 0) 
+    if(check_axis_constraint(pos.v, id, move_type, 7, 'V') == 0)
         in_range = 0;
-    if(check_axis_constraint(pos.w, id, move_type, 8, 'W') == 0) 
+    if(check_axis_constraint(pos.w, id, move_type, 8, 'W') == 0)
         in_range = 0;
 
     /* Now, check that the endpoint puts the joints within their limits too */
@@ -879,7 +879,7 @@ void emcmotCommandHandler(void *arg, long period)
                     *        teleop jog plus external offsets the soft limits
                     *        can always be reached
                     *  a fixed epsilon is used here for convenience
-                    *  it is not the same as the epsilon used as a stopping 
+                    *  it is not the same as the epsilon used as a stopping
                     *  criterion in control.c
                     */
                     if (emcmotCommand->vel > 0.0) {
@@ -983,7 +983,7 @@ void emcmotCommandHandler(void *arg, long period)
 	        }
                 axis_hal_t *axis_data = &(emcmot_hal_data->axis[axis_num]);
                 // a fixed epsilon is used here for convenience
-                // it is not the same as the epsilon used as a stopping 
+                // it is not the same as the epsilon used as a stopping
                 // criterion in control.c
                 if (   axis->ext_offset_tp.enable
                     && (fabs(*(axis_data->external_offset)) > EOFFSET_EPSILON)) {
@@ -1129,10 +1129,10 @@ void emcmotCommandHandler(void *arg, long period)
 
 	    /* append it to the emcmotDebug->coord_tp */
 	    tpSetId(&emcmotDebug->coord_tp, emcmotCommand->id);
-        int res_addline = tpAddLine(&emcmotDebug->coord_tp, emcmotCommand->pos, emcmotCommand->motion_type, 
+        int res_addline = tpAddLine(&emcmotDebug->coord_tp, emcmotCommand->pos, emcmotCommand->motion_type,
                                 emcmotCommand->vel, emcmotCommand->ini_maxvel, 
                                 emcmotCommand->acc, emcmotStatus->enables_new, issue_atspeed,
-                                emcmotCommand->turn);
+                                emcmotCommand->turn, emcmotCommand->tag);
         //KLUDGE ignore zero length line
         if (res_addline < 0) {
             reportError(_("can't add linear move at line %d, error code %d"),
@@ -1188,7 +1188,7 @@ void emcmotCommandHandler(void *arg, long period)
                             emcmotCommand->center, emcmotCommand->normal,
                             emcmotCommand->turn, emcmotCommand->motion_type,
                             emcmotCommand->vel, emcmotCommand->ini_maxvel,
-                            emcmotCommand->acc, emcmotStatus->enables_new, issue_atspeed);
+                            emcmotCommand->acc, emcmotStatus->enables_new, issue_atspeed, emcmotCommand->tag);
         if (res_addcircle < 0) {
             reportError(_("can't add circular move at line %d, error code %d"),
                     emcmotCommand->id, res_addcircle);
@@ -1645,7 +1645,7 @@ void emcmotCommandHandler(void *arg, long period)
 
 	    /* append it to the emcmotDebug->coord_tp */
 	    tpSetId(&emcmotDebug->coord_tp, emcmotCommand->id);
-	    if (-1 == tpAddLine(&emcmotDebug->coord_tp, emcmotCommand->pos, emcmotCommand->motion_type, emcmotCommand->vel, emcmotCommand->ini_maxvel, emcmotCommand->acc, emcmotStatus->enables_new, 0, -1)) {
+	    if (-1 == tpAddLine(&emcmotDebug->coord_tp, emcmotCommand->pos, emcmotCommand->motion_type, emcmotCommand->vel, emcmotCommand->ini_maxvel, emcmotCommand->acc, emcmotStatus->enables_new, 0, -1, emcmotCommand->tag)) {
 		reportError(_("can't add probe move"));
 		emcmotStatus->commandStatus = EMCMOT_COMMAND_BAD_EXEC;
 		tpAbort(&emcmotDebug->coord_tp);
@@ -1687,7 +1687,7 @@ void emcmotCommandHandler(void *arg, long period)
 
 	    /* append it to the emcmotDebug->coord_tp */
 	    tpSetId(&emcmotDebug->coord_tp, emcmotCommand->id);
-	    int res_addtap = tpAddRigidTap(&emcmotDebug->coord_tp, emcmotCommand->pos, emcmotCommand->vel, emcmotCommand->ini_maxvel, emcmotCommand->acc, emcmotStatus->enables_new, emcmotCommand->scale);
+	    int res_addtap = tpAddRigidTap(&emcmotDebug->coord_tp, emcmotCommand->pos, emcmotCommand->vel, emcmotCommand->ini_maxvel, emcmotCommand->acc, emcmotStatus->enables_new, emcmotCommand->scale, emcmotCommand-tag);
         if (res_addtap < 0) {
             emcmotStatus->atspeed_next_feed = 0; /* rigid tap always waits for spindle to be at-speed */
             reportError(_("can't add rigid tap move at line %d, error code %d"),

@@ -20,6 +20,7 @@
 #include "emctool.h"
 #include "canon_position.hh"
 #include "emcmotcfg.h" // Just for EMCMOT_NUM_SPINDLES
+#include "modal_state.hh"
 
 /*
   This is the header file that all applications that use the
@@ -185,7 +186,7 @@ typedef struct CanonConfig_t {
     bool optional_program_stop;
 /* optional block delete */
     bool block_delete;
-/* Used to indicate whether the current move is linear, angular, or 
+/* Used to indicate whether the current move is linear, angular, or
    a combination of both. */
    //AJ says: linear means axes XYZ move (lines or even circles)
    //         angular means axes ABC move
@@ -971,5 +972,7 @@ extern EmcPose GET_EXTERNAL_OFFSETS();
 
 #define STOP_ON_SYNCH_IF_EXTERNAL_OFFSETS
 #undef  STOP_ON_SYNCH_IF_EXTERNAL_OFFSETS
+
+extern void UPDATE_TAG(StateTag tag);
 
 #endif				/* ifndef CANON_HH */
