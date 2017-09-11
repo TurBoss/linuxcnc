@@ -52,10 +52,14 @@ in the pin descriptions.
 
 When used to regulate an axis offset, the \\fBeoffset_pid\\fR
 component servo loop is an outer loop to the \\fBLinuxCNC\\fR
-motion loop.  Since the inner loop effectively contains
-an integrator, use of the \\fBigain\\fR pin is not
-expected to be helpful and some amount of \\fBdgain\\fR may
-be required for stability.
+motion control.  For external offsets, this loop is implemented by
+a simple single-axis trajectory planner with constrained
+maximum velocity and maximum acceleration that are fractions
+of the limits available for the axis as set by the ini setting:
+[AXIS_L]OFFSET_AV_RATIO.   The inner loop effectively contains
+an integrator and use of the \\fBigain\\fR pin is not expected
+to be helpful; some amount of \\fBdgain\\fR may be required
+for stability.
 
 The use of the \\fBeoffset_pid\\fR component as a feedback loop
 enclosing the motion/external offset facilities of LinuxCNC is
@@ -65,22 +69,6 @@ component itself plus a) velocity and acceleration settings of the
 controlled axis in LinuxCNC, b) settings for torch timing and voltage
 control, and importantly c) torch voltage measurement, filtering, and
 noise control.
-
-
-\\fBRESTRICTIONS\\fR
-
-Gcode commands that require synchronization of the interpreter
-and motion modules (\\fBqueuebusters\\fR) result in immediate
-\\fBtermination\\fR of motion if applied external offsets are
-nonzero.  Commands that read hal pins (\\fBM66\\fR) and probe
-commands (\\fBG38.x\\fR) require this synchronization.  Consequently,
-reading hal pins and probe moves must be completed before
-enabling external offsets by the 'anding' of the enabling
-input pins.
-
-See the Documents chapter for \\fBExternal Axis Offsets\\fR for
-more information on these and other restrictions.
-
 
 \\fBEXPERIMENTAL derivative limit function (fnum=1)\\fR
 
