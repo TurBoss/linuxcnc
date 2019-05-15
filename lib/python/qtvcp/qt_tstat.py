@@ -20,7 +20,7 @@ import hashlib
 
 from qtvcp.core import Status, Info, Action
 # Set up logging
-import logger
+from . import logger
 
 STATUS = Status()
 INFO = Info()

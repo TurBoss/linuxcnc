@@ -23,7 +23,7 @@ log = logger.getLogger(__name__)
 #log.setLevel(logger.INFO) # One of DEBUG, INFO, WARNING, ERROR, CRITICAL
 
 def key_pressed( event):
-        """ Handle key presses (on any window) """
+    """ Handle key presses (on any window) """
 
         keynum = int(event.key())
         keys = {
@@ -169,7 +169,7 @@ def key_pressed( event):
                 Qt.Key_BraceRight: "Key_BraceRight",
                 Qt.Key_AsciiTilde: "Key_AsciiTilde",
 
-                }
+            }
 
         char = keys.get(keynum, '<unknown - {}>'.format(keynum))
  
@@ -182,11 +182,20 @@ def key_pressed( event):
         if (keynum >=65) and (keynum<=90):
             if event.modifiers() & Qt.ControlModifier:
                 char = char+chr(event.key())
-            else:
                 char = char+event.text()
+            else:
 
-        txt = "+".join(mods) + (mods and "+" or "") + char
-        return txt
+    mods = []
+    if event.modifiers() & Qt.AltModifier:
+        mods.append("Alt")
+    # For letters we want upper and lower in the keyname
+    # if control was used the keyname uses an upper letter
+    # we will also not add +shift to the keyname
+    if (keynum >=65) and (keynum<=90):
+        if event.modifiers() & Qt.ControlModifier:
+            char = char+chr(event.key())
+        else:
+            char = char+event.text()
 
 # list of keyname, function name, optional value
 # value can be used when calling one function with multiple keys

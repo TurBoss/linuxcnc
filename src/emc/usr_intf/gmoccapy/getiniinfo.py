@@ -67,7 +67,7 @@ class GetIniInfo:
             else:
                 machinename = machinename.replace(" ", "_")
                 temp = os.path.join(CONFIGPATH, "%s.pref" % machinename)
-        print("**** GMOCCAPY GETINIINFO **** \nPreference file path: %s" % temp)
+        print(("**** GMOCCAPY GETINIINFO **** \nPreference file path: %s" % temp))
         return temp
 
     def get_coordinates(self):
@@ -143,7 +143,7 @@ class GetIniInfo:
                 # OK we have a special case here, we need to take care off
                 # i.e. a Gantry XYYZ config
                 double_axis_letter.append(axisletter)
-                print("Fount double letter ", double_axis_letter)
+                print(("Fount double letter ", double_axis_letter))
 
         if self.get_joints() == len(coordinates):
             count = 0
@@ -314,7 +314,7 @@ class GetIniInfo:
         # and we want to set the default path
         default_path = self.inifile.find("DISPLAY", "PROGRAM_PREFIX")
         if not default_path:
-            print("**** GMOCCAPY GETINIINFO **** \nPath %s from DISPLAY , PROGRAM_PREFIX does not exist" % default_path)
+            print(("**** GMOCCAPY GETINIINFO **** \nPath %s from DISPLAY , PROGRAM_PREFIX does not exist" % default_path))
             print("**** GMOCCAPY GETINIINFO **** \nTrying default path...")
             default_path = "~/linuxcnc/nc_files/"
             if not os.path.exists(os.path.expanduser(default_path)):
@@ -432,7 +432,7 @@ class GetIniInfo:
                 if " " in element:
                     print("**** GMOCCAPY GETINIINFO **** \nERROR in user message setup \nPinname should not contain spaces")
                     return None
-            messages = zip(message_text, message_type, message_pinname)
+            messages = list(zip(message_text, message_type, message_pinname))
             return messages
 
     def get_machine_units(self):

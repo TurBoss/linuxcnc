@@ -233,7 +233,7 @@ class StatusAdjustmentBar(HAdjustmentBar, _HalWidgetBase):
             STATUS.connect('max-velocity-override-changed', lambda w, data: self.setValue(data))
             self.setMaximum(int(INFO.MAX_TRAJ_VELOCITY))
         else:
-           LOG.error('{} : no option recognised'.format(self.HAL_NAME_))
+            LOG.error('{} : no option recognised'.format(self.HAL_NAME_))
 
         # If there is a preference file object use it to load the hi/low toggle points
         if self.PREFS_:
@@ -264,7 +264,7 @@ class StatusAdjustmentBar(HAdjustmentBar, _HalWidgetBase):
         elif self.maxv:
             ACTION.SET_MAX_VELOCITY_RATE(value)
         else:
-           LOG.error('{} no action recognised'.format(self.HAL_NAME_))
+            LOG.error('{} no action recognised'.format(self.HAL_NAME_))
     #########################################################################
     # This is how designer can interact with our widget properties.
     # designer will show the pyqtProperty properties in the editor
