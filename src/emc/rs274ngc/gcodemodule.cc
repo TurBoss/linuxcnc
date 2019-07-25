@@ -538,7 +538,7 @@ void INIT_CANON() {}
 void GET_EXTERNAL_PARAMETER_FILE_NAME(char *name, int max_size) {
     PyObject *result = PyObject_GetAttrString(callback, "parameter_file");
     if(!result) { name[0] = 0; return; }
-    char *s = PyStr_AsString(result);    
+    char *s = PyBytes_AsString(result);
     if(!s) { name[0] = 0; return; }
     memset(name, 0, max_size);
     strncpy(name, s, max_size - 1);
@@ -764,7 +764,7 @@ static PyObject *parse_file(PyObject *self, PyObject *args) {
         {
             PyObject *item = PyList_GetItem(initcodes, i);
             if(!item) return NULL;
-            char *code = PyStr_AsString(item);
+            char *code = PyBytes_AsString(item);
             if(!code) return NULL;
             result = interp_new.read(code);
             if(!RESULT_OK) goto out_error;

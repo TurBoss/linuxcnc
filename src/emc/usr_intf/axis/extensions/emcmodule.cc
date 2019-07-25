@@ -250,7 +250,7 @@ static int emcSendCommand(pyCommandChannel *s, RCS_CMD_MSG & cmd) {
 static char *get_nmlfile(void) {
     PyObject *fileobj = PyObject_GetAttrString(m, "nmlfile");
     if(fileobj == NULL) return NULL;
-    return PyStr_AsString(fileobj);
+    return PyBytes_AsString(fileobj);
 }
 
 static int Stat_init(pyStatChannel *self, PyObject *a, PyObject *k) {

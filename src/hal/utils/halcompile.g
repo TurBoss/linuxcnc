@@ -16,19 +16,6 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 
-import os, sys, tempfile, shutil, getopt, time
-BASE = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), ".."))
-sys.path.insert(0, os.path.join(BASE, "lib", "python"))
-
-MAX_USERSPACE_NAMES = 16 # for userspace (loadusr) components
-# NOTE: names are assigned dynamically for realtime components (loadrt)
-
-# Components that use 'personality' features statically allocate
-# memory based on MAX_PERSONALITIES (RTAPI_MP_ARRAY_INT)
-# The number can be set with the cmdline option -P|--personalities
-# Smaller values may be useful since the index of the personality
-# exported is computed modulo MAX_PERSONALITIES
-MAX_PERSONALITIES = 64
 
 %%
 parser Hal:
@@ -112,6 +99,20 @@ parser Hal:
 %%
 
 mp_decl_map = {'int': 'RTAPI_MP_INT', 'dummy': None}
+
+import os, sys, tempfile, shutil, getopt, time
+BASE = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), ".."))
+sys.path.insert(0, os.path.join(BASE, "lib", "python"))
+
+MAX_USERSPACE_NAMES = 16 # for userspace (loadusr) components
+# NOTE: names are assigned dynamically for realtime components (loadrt)
+
+# Components that use 'personality' features statically allocate
+# memory based on MAX_PERSONALITIES (RTAPI_MP_ARRAY_INT)
+# The number can be set with the cmdline option -P|--personalities
+# Smaller values may be useful since the index of the personality
+# exported is computed modulo MAX_PERSONALITIES
+MAX_PERSONALITIES = 64
 
 # These are symbols that comp puts in the global namespace of the C file it
 # creates.  The user is thus not allowed to add any symbols with these

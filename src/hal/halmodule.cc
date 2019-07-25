@@ -504,13 +504,13 @@ static PyObject *pyhal_getattro(PyObject *_self, PyObject *attro)  {
     if(result) return result;
 
     PyErr_Clear();
-    return pyhal_read_common(find_item(self, PyStr_AsString(attro)));
+    return pyhal_read_common(find_item(self, PyBytes_AsString(attro)));
 }
 
 static int pyhal_setattro(PyObject *_self, PyObject *attro, PyObject *v) {
     halobject *self = (halobject *)_self;
     EXCEPTION_IF_NOT_LIVE(-1);
-    return pyhal_write_common(find_item(self, PyStr_AsString(attro)), v);
+    return pyhal_write_common(find_item(self, PyBytes_AsString(attro)), v);
 }
 
 static Py_ssize_t pyhal_len(PyObject *_self) {
