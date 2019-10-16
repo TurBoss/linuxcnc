@@ -254,15 +254,15 @@ int Interp::write_state_tag(block_pointer block,
     state.flags[GM_FLAG_RETRACT_OLDZ] = (settings->retract_mode == OLD_Z);
     state.flags[GM_FLAG_BLEND] = (settings->control_mode == CANON_CONTINUOUS);
     state.flags[GM_FLAG_EXACT_STOP] = (settings->control_mode == CANON_EXACT_STOP);
-    state.flags[GM_FLAG_CSS_MODE] = (settings->spindle_mode == CONSTANT_RPM);
+    state.flags[GM_FLAG_CSS_MODE] = (settings->spindle_mode[0] == CONSTANT_RPM);
     state.flags[GM_FLAG_IJK_ABS] = (settings->ijk_distance_mode == MODE_ABSOLUTE);
     state.flags[GM_FLAG_DIAMETER_MODE] = (settings->lathe_diameter_mode);
 
 
     state.fields[GM_FIELD_M_MODES_4] = (block == NULL) ? -1 : block->m_modes[4];
 
-    state.flags[GM_FLAG_SPINDLE_ON] = !(settings->spindle_turning != CANON_STOPPED);
-    state.flags[GM_FLAG_SPINDLE_CW] = (settings->spindle_turning == CANON_CLOCKWISE);
+    state.flags[GM_FLAG_SPINDLE_ON] = !(settings->spindle_turning[0] != CANON_STOPPED);
+    state.flags[GM_FLAG_SPINDLE_CW] = (settings->spindle_turning[0] == CANON_CLOCKWISE);
 
     state.fields[GM_FIELD_TOOLCHANGE] = (block == NULL) ? -1 : block->m_modes[6];
 
@@ -277,7 +277,7 @@ int Interp::write_state_tag(block_pointer block,
     state.flags[GM_FLAG_FEED_HOLD] =  (settings->feed_hold);
 
     state.feed = settings->feed_rate;        /* 1 feed rate       */
-    state.speed = settings->speed;    /* 2 spindle speed   */
+    state.speed = settings->speed[0];    /* 2 spindle speed   */
 
     return 0;
 }

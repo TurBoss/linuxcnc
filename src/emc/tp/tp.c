@@ -1470,7 +1470,7 @@ STATIC int tpSetupSyncedIO(TP_STRUCT * const tp, TC_STRUCT * const tc) {
  * Adds a rigid tap cycle to the motion queue.
  */
 int tpAddRigidTap(TP_STRUCT * const tp, EmcPose end, double vel, double ini_maxvel,
-        double acc, unsigned char enables) {
+        double acc, unsigned char enables, double scale, struct state_tag_t tag) {
     if (tpErrorCheck(tp)) {
         return TP_ERR_FAIL;
     }
