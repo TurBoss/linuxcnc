@@ -43,8 +43,8 @@ if response == Gtk.ResponseType.OK:
 fcd.destroy()
 if response == Gtk.ResponseType.CANCEL:
   quit(1)
-print file_name
-print machinename
+print(file_name)
+print(machinename)
 file = open(file_name,'r')
 #convert to string:
 data = file.read()
