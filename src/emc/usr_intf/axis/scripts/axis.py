@@ -1850,7 +1850,7 @@ def ja_from_rbutton():
     try: # ja may be a joint number or an axis coordinate letter
         a = int(ja) # invalid for types: 'str' or 'unicode'
         if a not in range(linuxcnc.MAX_JOINTS):
-            print "ja_from_rbutton:Unexpected joint number",a
+            print("ja_from_rbutton:Unexpected joint number",a)
             return "" # can not continue
     except ValueError:
         a = axes.index(ja) # letter specifies an axis coordinate
