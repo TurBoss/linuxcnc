@@ -37,8 +37,8 @@ import array, time, atexit, tempfile, shutil, errno, _thread, select, re, getopt
 import traceback
 
 # Print Tk errors to stdout. python.org/sf/639266
-import Tkinter
-OldTk = Tkinter.Tk
+import tkinter
+OldTk = tkinter.Tk
 class Tk(OldTk):
     def __init__(self, *args, **kw):
         OldTk.__init__(self, *args, **kw)
