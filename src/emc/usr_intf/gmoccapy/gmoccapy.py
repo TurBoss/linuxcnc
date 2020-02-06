@@ -1079,7 +1079,7 @@ class gmoccapy(object):
 
         JOGMODE = self._get_jog_mode()
 
-        if self.distance <> 0:  # incremental jogging
+        if self.distance != 0:  # incremental jogging
             distance = self.distance
             if self.lathe_mode and self.diameter_mode and button_name[0] == "x":
                 distance = self.distance/2
@@ -1098,7 +1098,7 @@ class gmoccapy(object):
         JOGMODE = self._get_jog_mode()
 
         # Otherwise the movement would stop before the desired distance was moved
-        if self.distance <> 0:
+        if self.distance != 0:
             pass
         else:
             self.command.jog(linuxcnc.JOG_STOP, JOGMODE, joint_no_or_axis_index)
@@ -1558,7 +1558,7 @@ class gmoccapy(object):
     def _arrange_jog_button_by_axis(self):
         print("**** GMOCCAPY INFO ****")
         print("**** arrange JOG button by axis")
-        print sorted(self.jog_button_dic.keys())
+        print(sorted(self.jog_button_dic.keys()))
         # check if amount of axis is an even number, adapt the needed lines
         cols = 4
         if len(self.dro_dic) % 2 == 0:
@@ -2822,7 +2822,7 @@ class gmoccapy(object):
 
     def _switch_to_g7(self, state):
         # we do this only if we have a lathe, the check for lathe is done in gmoccapy
-        print state
+        print(state)
         if state:
             self.dro_dic["Combi_DRO_0"].set_property("abs_color", gtk.gdk.color_parse("#F2F1F0"))
             self.dro_dic["Combi_DRO_0"].set_property("rel_color", gtk.gdk.color_parse("#F2F1F0"))

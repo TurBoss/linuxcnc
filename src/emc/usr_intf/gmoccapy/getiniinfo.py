@@ -166,7 +166,7 @@ class GetIniInfo:
             for joint, axisletter in enumerate(["x", "y", "z", "a", "b", "c", "u", "v", "w"]):
                 if axisletter in coordinates:
                     joint_axis_dic[joint] = axisletter
-        print joint_axis_dic
+        print(joint_axis_dic)
         #return sorted(joint_axis_dic, key=joint_axis_dic.get, reverse=False)
         return joint_axis_dic, double_axis_letter
 
