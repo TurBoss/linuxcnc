@@ -937,7 +937,7 @@ But there is not one in the machine-named folder.."""),True)
             pwmmaxoutput = get_value(widgets[axis+"outputscale"])
         enc_scale = get_value(widgets[axis+"encoderscale"])
         pump = self.a.findsignal("charge-pump")
-        print 'fast %d,max %d, ss max %d, dac_scale %d'%(fastdac,max_dac,pwmmaxoutput,dac_scale)
+        print('fast %d,max %d, ss max %d, dac_scale %d'%(fastdac,max_dac,pwmmaxoutput,dac_scale))
         halrun.write("loadrt threads period1=%d name1=base-thread fp1=0 period2=%d name2=servo-thread \n" % (100000, self.d.servoperiod  ))
         load,read,write = self.a.hostmot2_command_string()
         for i in load:

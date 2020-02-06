@@ -870,12 +870,12 @@ If you have a REALLY large config that you wish to convert to this newer version
             dialog.destroy()
         else:
             for para in warnings:
-                for line in textwrap.wrap(para, 78): print line
+                for line in textwrap.wrap(para, 78): print(line)
                 print
             print
             if force: return
             response = raw_input(_("Continue? "))
-            if response[0] not in _("yY"): raise SystemExit, 1
+            if response[0] not in _("yY"): raise SystemExit(1)
 
     def add_md5sum(self, filename, mode="r"):
         self.md5sums.append((filename, md5sum(filename)))
@@ -924,11 +924,11 @@ If you have a REALLY large config that you wish to convert to this newer version
             n.setAttribute('value', str(v))
         
         d.writexml(open(filename, "wb"), addindent="  ", newl="\n")
-        print "%s" % base
+        print("%s" % base)
 
         # write pncconf hidden preference file
         filename = os.path.expanduser("~/.pncconf-preferences")
-        print filename
+        print(filename)
         d2 = xml.dom.minidom.getDOMImplementation().createDocument(
                             None, "int-pncconf", None)
         e2 = d2.documentElement
@@ -1063,7 +1063,7 @@ If you have a REALLY large config that you wish to convert to this newer version
             print >>file,"Icon=%s"% _PD.LINUXCNCICON
             file.close()
             # Ubuntu 10.04 require launcher to have execute permissions
-            os.chmod(filename,0775)
+            os.chmod(filename,493)
 
     def __getitem__(self, item):
         return getattr(self, item)
