@@ -122,14 +122,14 @@ class INI:
         print("EMCMOT = motmod", file=file)
         print("COMM_TIMEOUT = 1.0", file=file)
         #print("BASE_PERIOD = %d" % self.d.baseperiod
-        print("SERVO_PERIOD = %d" % self.d.servoperiod)
-        print()
-        print("[HMOT]")
+        print("SERVO_PERIOD = %d" % self.d.servoperiod, file=file)
+        print(file=file)
+        print("[HMOT]", file=file)
         if not self.d.useinisubstitution:
-            print("# **** This is for info only ****")
-        print("CARD0=hm2_%s.0"% self.d.mesa0_currentfirmwaredata[_PD._BOARDNAME])
+            print("# **** This is for info only ****", file=file)
+        print("CARD0=hm2_%s.0"% self.d.mesa0_currentfirmwaredata[_PD._BOARDNAME], file=file)
         if self.d.number_mesa == 2:
-            print("CARD1=hm_%s.1"% self.d.mesa1_currentfirmwaredata[_PD._BOARDNAME])
+            print("CARD1=hm_%s.1"% self.d.mesa1_currentfirmwaredata[_PD._BOARDNAME], file=file)
         if self.d._substitution_list:
             print("# These are to ease setting custom component's parameters in a custom HAL file", file=file)
             print(file=file)
@@ -324,7 +324,7 @@ class INI:
 
         print(file=file)
         if letter == 's':
-            print("[SPINDLE_%d]" % 0)
+            print("[SPINDLE_%d]" % 0, file=file)
         else:
             print("[JOINT_%d]" % num, file=file)
             print("TYPE = %s" % type, file=file)
@@ -381,7 +381,7 @@ class INI:
                 print("OUTPUT_MAX_LIMIT = %s"% ( int(scale) ), file=file)
                 print(file=file)
             else:
-                print("OUTPUT_SCALE = %s" % (get("outputscale") * temp))
+                print("OUTPUT_SCALE = %s" % (get("outputscale") * temp), file=file)
                 pwmpinname = self.a.make_pinname(pwmgen)
                 if (pwmgen and "analog" in pwmpinname) or potoutput:
                     print("OUTPUT_MIN_LIMIT = %s"% (get("outputminlimit")), file=file)
@@ -434,7 +434,7 @@ class INI:
             print("HOME_USE_INDEX = %s" % useindex, file=file)
             for i in ignore:
                 if self.a.findsignal(i):
-                    print("HOME_IGNORE_LIMITS = YES")
+                    print("HOME_IGNORE_LIMITS = YES", file=file)
                     break
             # if all axis have homing switches and user doesn't request
             # manual individual homing:
