@@ -329,7 +329,7 @@ class App:
             itr = self.widgets.discovery_interface_combobox.get_active_iter()
             d = self.widgets.discovery_interface_combobox.get_model().get_value(itr, 1)
             a = self.widgets.discovery_address_entry.get_text()
-        print 'discovery:',n,d,a
+        print('discovery:',n,d,a)
         return n,d,a
 
     def discovery_interface_combobox_changed(self,w):
@@ -350,7 +350,7 @@ class App:
                 if key in name:
                     return _PD.MESA_BOARD_META.get(key)
 
-        print 'boardname %s not found in hardware metadata array'% name
+        print('boardname %s not found in hardware metadata array'% name)
         self.widgets.boardmetadialog.set_title(_("%s metadata update") % name)
         self.widgets.cardname_label.set_text('Boardname:  %s'%name)
         self.widgets.boardmetadialog.show_all()
@@ -917,70 +917,70 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
         boardname = text.lower()
         #dbg("\nBoard and firmwarename:  %s %s\n"%( boardname, firmname), "firmraw")
 
-            text  = search(("IOPORTS","ioports")) ; #print numcnctrs
-            if text == None:
-                print 'Missing info: ioports'
-                return
-            numcnctrs = int(text)
-            text = search(("PORTWIDTH","portwidth"))
-            if text == None:
-                print 'Missing info: portwidth'
-                return
-            portwidth = int(text)
-            maxgpio  = numcnctrs * portwidth ; #print maxgpio
-            placeholders = 24-portwidth
-            text = search(("CLOCKLOW","clocklow")) ; #print lowfreq
-            if text == None:
-                print 'Missing info: clocklow'
-                return
-            lowfreq = int(text)/1000000
-            text = search(("CLOCKHIGH","clockhigh")); #print hifreq
-            if text == None:
-                print 'Missing info: clockhigh'
-                return
-            hifreq = int(text)/1000000
-            modules = root.findall(".//modules")[0]
-            if driver == None:
-                meta = self.get_board_meta(currentboard)
-                driver = meta.get('DRIVER')
-            for i,j in enumerate(modules):
-                k = modules[i].find("tagname").text
-                print k
-                if k in ("Watchdog","WatchDog","WATCHDOG"): 
-                    l = modules[i].find("numinstances").text;#print l,k
-                    watchdog = int(l)
-                elif k in ("Encoder","QCOUNT"): 
-                    l = modules[i].find("numinstances").text;#print l,k
-                    encoder = int(l)
-                elif k in ("ResolverMod","RESOLVERMOD"):
-                    l = modules[i].find("numinstances").text;#print l,k
-                    resolver = int(l)
-                elif k in ("PWMGen","PWMGEN","PWM"):
-                    l = modules[i].find("numinstances").text;#print l,k
-                    pwmgen = int(l)
-                elif k == "LED": 
-                    l = modules[i].find("numinstances").text;#print l,k
-                    led = int(l)
-                elif k in ("MuxedQCount","MUXEDQCOUNT"): 
-                    l = modules[i].find("numinstances").text;#print l,k
-                    muxedqcount = int(l)
-                elif k in ("StepGen","STEPGEN"): 
-                    l = modules[i].find("numinstances").text;#print l,k
-                    stepgen = int(l)
-                elif k in ("TPPWM","TPPWM"): 
-                    l = modules[i].find("numinstances").text;#print l,k
-                    tppwmgen = int(l)
-                elif k in ("SSerial","SSERIAL"):
-                    l = modules[i].find("numinstances").text;#print l,k
-                    sserialports = int(l)
-                elif k in ("None","NONE"): 
-                    l = modules[i].find("numinstances").text;#print l,k
-                elif k in ("ssr","SSR"): 
-                    l = modules[i].find("numinstances").text;#print l,k
-                elif k in ("IOPort","AddrX","MuxedQCountSel"):
-                    continue
-                else:
-                    print "**** WARNING: Pncconf parsing firmware: tagname (%s) not reconized"% k
+        text  = search(("IOPORTS","ioports")) ; #print numcnctrs
+        if text == None:
+            print('Missing info: ioports')
+            return
+        numcnctrs = int(text)
+        text = search(("PORTWIDTH","portwidth"))
+        if text == None:
+            print('Missing info: portwidth')
+            return
+        portwidth = int(text)
+        maxgpio  = numcnctrs * portwidth ; #print maxgpio
+        placeholders = 24-portwidth
+        text = search(("CLOCKLOW","clocklow")) ; #print lowfreq
+        if text == None:
+            print('Missing info: clocklow')
+            return
+        lowfreq = int(text)/1000000
+        text = search(("CLOCKHIGH","clockhigh")); #print hifreq
+        if text == None:
+            print('Missing info: clockhigh')
+            return
+        hifreq = int(text)/1000000
+        modules = root.findall(".//modules")[0]
+        if driver == None:
+            meta = self.get_board_meta(currentboard)
+            driver = meta.get('DRIVER')
+        for i,j in enumerate(modules):
+            k = modules[i].find("tagname").text
+            print(k)
+            if k in ("Watchdog","WatchDog","WATCHDOG"):
+                l = modules[i].find("numinstances").text;#print l,k
+                watchdog = int(l)
+            elif k in ("Encoder","QCOUNT"):
+                l = modules[i].find("numinstances").text;#print l,k
+                encoder = int(l)
+            elif k in ("ResolverMod","RESOLVERMOD"):
+                l = modules[i].find("numinstances").text;#print l,k
+                resolver = int(l)
+            elif k in ("PWMGen","PWMGEN","PWM"):
+                l = modules[i].find("numinstances").text;#print l,k
+                pwmgen = int(l)
+            elif k == "LED":
+                l = modules[i].find("numinstances").text;#print l,k
+                led = int(l)
+            elif k in ("MuxedQCount","MUXEDQCOUNT"):
+                l = modules[i].find("numinstances").text;#print l,k
+                muxedqcount = int(l)
+            elif k in ("StepGen","STEPGEN"):
+                l = modules[i].find("numinstances").text;#print l,k
+                stepgen = int(l)
+            elif k in ("TPPWM","TPPWM"):
+                l = modules[i].find("numinstances").text;#print l,k
+                tppwmgen = int(l)
+            elif k in ("SSerial","SSERIAL"):
+                l = modules[i].find("numinstances").text;#print l,k
+                sserialports = int(l)
+            elif k in ("None","NONE"):
+                l = modules[i].find("numinstances").text;#print l,k
+            elif k in ("ssr","SSR"):
+                l = modules[i].find("numinstances").text;#print l,k
+            elif k in ("IOPort","AddrX","MuxedQCountSel"):
+                continue
+            else:
+                print("**** WARNING: Pncconf parsing firmware: tagname (%s) not reconized"% k)
 
         discov_sserial = []
         ssname = root.findall("SSERIALDEVICES/SSERIALFUNCTION")
@@ -989,7 +989,8 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
             dev = i.find("DEVICE").text
             chan = i.find("CHANNEL").text
             discov_sserial.append((int(port),int(chan),dev))
-        print('discovered sserial:', discov_sserial)
+
+            print('discovered sserial:', discov_sserial)
 
             pins = root.findall(".//pins")[0]
             temppinlist = []
@@ -1035,12 +1036,12 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
                 tempfunc = pins[i].find("secondaryfunctionname").text
                 tempfunc = tempfunc.upper().strip() # normalise capitalization: Peters XMLs are different from linuxcncs
 
-            if "(IN)" in tempfunc:
-                tempfunc = tempfunc.rstrip(" (IN)")
-            elif "(OUT" in tempfunc:
-                tempfunc = tempfunc.rstrip(" (OUT)")
-            convertedname = "Not Converted"
-            # this converts the XML file componennt names to pncconf's names
+                if "(IN)" in tempfunc:
+                    tempfunc = tempfunc.rstrip(" (IN)")
+                elif "(OUT" in tempfunc:
+                    tempfunc = tempfunc.rstrip(" (OUT)")
+                convertedname = "Not Converted"
+                # this converts the XML file componennt names to pncconf's names
 
                 try:
                     secmodname = pins[i].find("secondarymodulename")
@@ -1106,16 +1107,16 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
                         iocode = 0
                         #convertedname = pinconvertnone[tempfunc]
                     else:
-                         print 'unknon module - setting to unusable',modulename, tempfunc
+                         print('unknon module - setting to unusable',modulename, tempfunc)
                          convertedname = _PD.NUSED
                 except:
                     iocode = 0
                     exc_type, exc_value, exc_traceback = sys.exc_info()
                     formatted_lines = traceback.format_exc().splitlines()
-                    print
-                    print "****pncconf verbose XML parse debugging:",formatted_lines[0]
+                    print()
+                    print("****pncconf verbose XML parse debugging:",formatted_lines[0])
                     traceback.print_tb(exc_traceback, limit=1, file=sys.stdout)
-                    print formatted_lines[-1]
+                    print(formatted_lines[-1])
 
                 if iocode == 0:
                     # must be GPIO pins if there is no secondary mudule name
@@ -1181,7 +1182,7 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
                 temp.append(i)
             if "5i25" in boardname :
                 dbg("5i25 firmware:\n%s\n"%( temp), mtype="5i25")
-            print 'firm added:\n',temp
+            print('firm added:\n',temp)
             return temp
 
     def discover_mesacards(self):
@@ -1192,7 +1193,7 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
             name = '5i25'
 
         if self.debugstate:
-            print 'try to discover board by reading help text input:',name
+            print('try to discover board by reading help text input:',name)
             buf = self.widgets.textinput.get_buffer()
             info = buf.get_text(buf.get_start_iter(),
                         buf.get_end_iter(),
@@ -1223,7 +1224,7 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
         if address == ' ':
             address = None
         textbuffer = self.widgets.textoutput.get_buffer()
-        print 'DEVICE NAME SPECIFIED',devicename, interface, address
+        print('DEVICE NAME SPECIFIED',devicename, interface, address)
 
         # 7i43 needs it's firmware loaded before it can be 'discovered'
         if '7i43' in devicename.lower():
@@ -1255,7 +1256,7 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
                 textbuffer.set_text('Command:\n%s\n gave:\n%s'%(cmd,error))
                 self.widgets.helpnotebook.set_current_page(2)
             except Exception as e :
-                print e
+                print(e)
             return None
  
         try :         
@@ -1266,7 +1267,7 @@ PNCconf will use internal firmware data"%self._p.FIRMDIR),True)
             text = _("Discovery is  unavailable\n")
             self.warning_dialog(text,True)
 
-        print 'cmd=',cmd
+        print('cmd=',cmd)
         return output
 
     def parse_discovery(self,info,boardnum=0):
@@ -2135,135 +2136,135 @@ Clicking 'existing custom program' will aviod this warning. "),False):
                 #print "sserial data transfer",p
 
     def data_transfer(self,boardnum,connector,channel,pin,p,pinv,ptype):
-                foundit = False
-                piter = self.widgets[p].get_active_iter()
-                ptiter = self.widgets[ptype].get_active_iter()
-                pintype = self.widgets[ptype].get_active_text()
-                selection = self.widgets[p].get_active_text()
-                signaltree = self.widgets[p].get_model()
-                #if "serial" in p:
-                #    print "**** INFO mesa-data-transfer:",p," selection: ",selection,"  pintype: ",pintype
-                #    print "**** INFO mesa-data-transfer:",ptiter,piter
-                # type NOTUSED
-                if pintype == _PD.NUSED:
-                    self.d[p] = _PD.UNUSED_UNUSED
-                    self.d[ptype] = _PD.NUSED
-                    self.d[pinv] = False
-                    return
-                # type GPIO input
-                if pintype == _PD.GPIOI:
-                    ptypetree = self.d._gpioliststore
-                    signaltocheck = _PD.hal_input_names
-                # type gpio output and open drain
-                elif pintype in (_PD.GPIOO,_PD.GPIOD):
-                    ptypetree = self.d._gpioliststore
-                    signaltocheck = _PD.hal_output_names
-                elif pintype == _PD.SSR0:
-                    ptypetree = self.d._ssrliststore
-                    signaltocheck = _PD.hal_output_names
-                #type encoder
-                elif pintype in (_PD.ENCA,_PD.ENCB,_PD.ENCI,_PD.ENCM):
-                    ptypetree = self.d._encoderliststore
-                    signaltocheck = _PD.hal_encoder_input_names
-                # resolvers
-                elif pintype in (_PD.RES0,_PD.RES1,_PD.RES2,_PD.RES3,_PD.RES4,_PD.RES5,_PD.RESU):
-                    ptypetree = self.d._resolverliststore
-                    signaltocheck = _PD.hal_resolver_input_names
-                # 8i20 amplifier card
-                elif pintype == _PD.AMP8I20:
-                    ptypetree = self.d._8i20liststore
-                    signaltocheck = _PD.hal_8i20_input_names
-                # potentiometer output
-                elif pintype in (_PD.POTO,_PD.POTE):
-                    ptypetree = self.d._potliststore
-                    signaltocheck = _PD.hal_pot_output_names
-                # analog in 
-                elif pintype == (_PD.ANALOGIN):
-                    ptypetree = self.d._analoginliststore
-                    signaltocheck = _PD.hal_analog_input_names
-                #type mux encoder
-                elif pintype in (_PD.MXE0, _PD.MXE1, _PD.MXEI, _PD.MXEM, _PD.MXES):
-                    ptypetree = self.d._muxencoderliststore
-                    signaltocheck = _PD.hal_encoder_input_names
-                # type PWM gen
-                elif pintype in( _PD.PDMP,_PD.PDMD,_PD.PDME):
-                    if pintype == _PD.PDMP:
-                        ptypetree = self.d._pdmcontrolliststore
-                    else:
-                        ptypetree = self.d._pdmrelatedliststore
-                    signaltocheck = _PD.hal_pwm_output_names
-                # PDM
-                elif pintype in( _PD.PWMP,_PD.PWMD,_PD.PWME):
-                    if pintype == _PD.PWMP:
-                        ptypetree = self.d._pwmcontrolliststore
-                    else:
-                        ptypetree = self.d._pwmrelatedliststore
-                    signaltocheck = _PD.hal_pwm_output_names
-                # Up/Down mode
-                elif pintype in( _PD.UDMU,_PD.UDMD,_PD.UDME):
-                    if pintype == _PD.UDMU:
-                        ptypetree = self.d._udmcontrolliststore
-                    else:
-                        ptypetree = self.d._udmrelatedliststore
-                    signaltocheck = _PD.hal_pwm_output_names
-                # type tp pwm
-                elif pintype in (_PD.TPPWMA,_PD.TPPWMB,_PD.TPPWMC,_PD.TPPWMAN,_PD.TPPWMBN,_PD.TPPWMCN,_PD.TPPWME,_PD.TPPWMF): 
-                    ptypetree = self.d._tppwmliststore 
-                    signaltocheck = _PD.hal_tppwm_output_names
-                # type step gen
-                elif pintype in (_PD.STEPA,_PD.STEPB):
-                    ptypetree = self.d._stepperliststore
-                    signaltocheck = _PD.hal_stepper_names
-                # type sserial
-                elif pintype in (_PD.RXDATA0,_PD.TXDATA0,_PD.TXEN0,_PD.RXDATA1,_PD.TXDATA1,_PD.TXEN1,_PD.RXDATA2,
-                                    _PD.TXDATA2,_PD.TXEN2,_PD.RXDATA3,_PD.TXDATA3,_PD.TXEN3,
-                                    _PD.RXDATA4,_PD.TXDATA4,_PD.TXEN4,_PD.RXDATA5,_PD.TXDATA5,_PD.TXEN5,_PD.RXDATA6,_PD.TXDATA6,
-                                    _PD.TXEN6,_PD.RXDATA7,_PD.TXDATA7,_PD.TXEN7,
-                                    _PD.SS7I76M0,_PD.SS7I76M2,_PD.SS7I76M3,_PD.SS7I77M0,_PD.SS7I77M1,_PD.SS7I77M3,_PD.SS7I77M4):
-                    ptypetree = self.d._sserialliststore
-                    signaltocheck = _PD.hal_sserial_names
-                # this suppresses errors because of unused and uninitialized sserial instances
-                elif pintype == None and "sserial" in ptype: return
-                else :
-                    print "**** ERROR mesa-data-transfer: error unknown pin type:",pintype,"of ",ptype
-                    return
-                
-                # **Start widget to data Convertion**                    
-                # for encoder pins
-                if piter == None:
-                        #print "callin pin changed !!!"
-                        name ="mesa"
-                        if "sserial" in p: name = "sserial"
-                        self.on_general_pin_changed(None,name,boardnum,connector,channel,pin,True)  
-                        selection = self.widgets[p].get_active_text()
-                        piter = self.widgets[p].get_active_iter()
-                        if piter == None:
-                            print "****ERROR PNCCONF: no custom name available"
-                            return
-                        #print "found signame -> ",selection," "
-                # ok we have a piter with a signal type now- lets convert it to a signalname
-                #if not "serial" in p:
-                #    self.debug_iter(piter,p,"signal")
-                dummy, index = signaltree.get(piter,0,1)
-                #if not "serial" in p:
-                #    print "signaltree: ",dummy
-                #    self.debug_iter(ptiter,ptype,"ptype")
-                widgetptype, index2 = ptypetree.get(ptiter,0,1)
-                #if not "serial" in p:
-                #    print "ptypetree: ",widgetptype
-                if pintype in (_PD.GPIOI,_PD.GPIOO,_PD.GPIOD,_PD.SSR0,_PD.MXE0,_PD.MXE1,_PD.RES1,_PD.RES2,_PD.RES3,_PD.RES4,_PD.RES5,_PD.RESU,_PD.SS7I76M0,
-                                _PD.SS7I76M2,_PD.SS7I76M3,_PD.SS7I77M0,_PD.SS7I77M1,_PD.SS7I77M3,_PD.SS7I77M4) or (index == 0):
-                    index2 = 0
-                elif pintype in ( _PD.TXDATA0,_PD.RXDATA0,_PD.TXEN0,_PD.TXDATA1,_PD.RXDATA1,_PD.TXEN1,_PD.TXDATA2,_PD.RXDATA2,
-                                   _PD.TXEN2,_PD.TXDATA3,_PD.RXDATA3,_PD.TXEN3,_PD.TXDATA4,_PD.RXDATA4,_PD.TXEN4,
-                                  _PD.TXDATA5,_PD.RXDATA5,_PD.TXEN5,_PD.TXDATA6,_PD.RXDATA6,_PD.TXEN6,_PD.TXDATA7,_PD.RXDATA7,_PD.TXEN7 ):
-                    index2 = 0
-                #print index,index2,signaltocheck[index+index2]
-                self.d[p] = signaltocheck[index+index2]
-                self.d[ptype] = widgetptype
-                self.d[pinv] = self.widgets[pinv].get_active()
-                #if "serial" in p:
-                #    print "*** INFO PNCCONF mesa pin:",p,"signalname:",self.d[p],"pin type:",widgetptype
+            foundit = False
+            piter = self.widgets[p].get_active_iter()
+            ptiter = self.widgets[ptype].get_active_iter()
+            pintype = self.widgets[ptype].get_active_text()
+            selection = self.widgets[p].get_active_text()
+            signaltree = self.widgets[p].get_model()
+            #if "serial" in p:
+            #    print "**** INFO mesa-data-transfer:",p," selection: ",selection,"  pintype: ",pintype
+            #    print "**** INFO mesa-data-transfer:",ptiter,piter
+            # type NOTUSED
+            if pintype == _PD.NUSED:
+                self.d[p] = _PD.UNUSED_UNUSED
+                self.d[ptype] = _PD.NUSED
+                self.d[pinv] = False
+                return
+            # type GPIO input
+            if pintype == _PD.GPIOI:
+                ptypetree = self.d._gpioliststore
+                signaltocheck = _PD.hal_input_names
+            # type gpio output and open drain
+            elif pintype in (_PD.GPIOO,_PD.GPIOD):
+                ptypetree = self.d._gpioliststore
+                signaltocheck = _PD.hal_output_names
+            elif pintype == _PD.SSR0:
+                ptypetree = self.d._ssrliststore
+                signaltocheck = _PD.hal_output_names
+            #type encoder
+            elif pintype in (_PD.ENCA,_PD.ENCB,_PD.ENCI,_PD.ENCM):
+                ptypetree = self.d._encoderliststore
+                signaltocheck = _PD.hal_encoder_input_names
+            # resolvers
+            elif pintype in (_PD.RES0,_PD.RES1,_PD.RES2,_PD.RES3,_PD.RES4,_PD.RES5,_PD.RESU):
+                ptypetree = self.d._resolverliststore
+                signaltocheck = _PD.hal_resolver_input_names
+            # 8i20 amplifier card
+            elif pintype == _PD.AMP8I20:
+                ptypetree = self.d._8i20liststore
+                signaltocheck = _PD.hal_8i20_input_names
+            # potentiometer output
+            elif pintype in (_PD.POTO,_PD.POTE):
+                ptypetree = self.d._potliststore
+                signaltocheck = _PD.hal_pot_output_names
+            # analog in
+            elif pintype == (_PD.ANALOGIN):
+                ptypetree = self.d._analoginliststore
+                signaltocheck = _PD.hal_analog_input_names
+            #type mux encoder
+            elif pintype in (_PD.MXE0, _PD.MXE1, _PD.MXEI, _PD.MXEM, _PD.MXES):
+                ptypetree = self.d._muxencoderliststore
+                signaltocheck = _PD.hal_encoder_input_names
+            # type PWM gen
+            elif pintype in( _PD.PDMP,_PD.PDMD,_PD.PDME):
+                if pintype == _PD.PDMP:
+                    ptypetree = self.d._pdmcontrolliststore
+                else:
+                    ptypetree = self.d._pdmrelatedliststore
+                signaltocheck = _PD.hal_pwm_output_names
+            # PDM
+            elif pintype in( _PD.PWMP,_PD.PWMD,_PD.PWME):
+                if pintype == _PD.PWMP:
+                    ptypetree = self.d._pwmcontrolliststore
+                else:
+                    ptypetree = self.d._pwmrelatedliststore
+                signaltocheck = _PD.hal_pwm_output_names
+            # Up/Down mode
+            elif pintype in( _PD.UDMU,_PD.UDMD,_PD.UDME):
+                if pintype == _PD.UDMU:
+                    ptypetree = self.d._udmcontrolliststore
+                else:
+                    ptypetree = self.d._udmrelatedliststore
+                signaltocheck = _PD.hal_pwm_output_names
+            # type tp pwm
+            elif pintype in (_PD.TPPWMA,_PD.TPPWMB,_PD.TPPWMC,_PD.TPPWMAN,_PD.TPPWMBN,_PD.TPPWMCN,_PD.TPPWME,_PD.TPPWMF):
+                ptypetree = self.d._tppwmliststore
+                signaltocheck = _PD.hal_tppwm_output_names
+            # type step gen
+            elif pintype in (_PD.STEPA,_PD.STEPB):
+                ptypetree = self.d._stepperliststore
+                signaltocheck = _PD.hal_stepper_names
+            # type sserial
+            elif pintype in (_PD.RXDATA0,_PD.TXDATA0,_PD.TXEN0,_PD.RXDATA1,_PD.TXDATA1,_PD.TXEN1,_PD.RXDATA2,
+                                _PD.TXDATA2,_PD.TXEN2,_PD.RXDATA3,_PD.TXDATA3,_PD.TXEN3,
+                                _PD.RXDATA4,_PD.TXDATA4,_PD.TXEN4,_PD.RXDATA5,_PD.TXDATA5,_PD.TXEN5,_PD.RXDATA6,_PD.TXDATA6,
+                                _PD.TXEN6,_PD.RXDATA7,_PD.TXDATA7,_PD.TXEN7,
+                                _PD.SS7I76M0,_PD.SS7I76M2,_PD.SS7I76M3,_PD.SS7I77M0,_PD.SS7I77M1,_PD.SS7I77M3,_PD.SS7I77M4):
+                ptypetree = self.d._sserialliststore
+                signaltocheck = _PD.hal_sserial_names
+            # this suppresses errors because of unused and uninitialized sserial instances
+            elif pintype == None and "sserial" in ptype: return
+            else :
+                print("**** ERROR mesa-data-transfer: error unknown pin type:",pintype,"of ",ptype)
+                return
+
+            # **Start widget to data Convertion**
+            # for encoder pins
+            if piter == None:
+                    #print "callin pin changed !!!"
+                    name ="mesa"
+                    if "sserial" in p: name = "sserial"
+                    self.on_general_pin_changed(None,name,boardnum,connector,channel,pin,True)
+                    selection = self.widgets[p].get_active_text()
+                    piter = self.widgets[p].get_active_iter()
+                    if piter == None:
+                        print("****ERROR PNCCONF: no custom name available")
+                        return
+                    #print "found signame -> ",selection," "
+            # ok we have a piter with a signal type now- lets convert it to a signalname
+            #if not "serial" in p:
+            #    self.debug_iter(piter,p,"signal")
+            dummy, index = signaltree.get(piter,0,1)
+            #if not "serial" in p:
+            #    print "signaltree: ",dummy
+            #    self.debug_iter(ptiter,ptype,"ptype")
+            widgetptype, index2 = ptypetree.get(ptiter,0,1)
+            #if not "serial" in p:
+            #    print "ptypetree: ",widgetptype
+            if pintype in (_PD.GPIOI,_PD.GPIOO,_PD.GPIOD,_PD.SSR0,_PD.MXE0,_PD.MXE1,_PD.RES1,_PD.RES2,_PD.RES3,_PD.RES4,_PD.RES5,_PD.RESU,_PD.SS7I76M0,
+                            _PD.SS7I76M2,_PD.SS7I76M3,_PD.SS7I77M0,_PD.SS7I77M1,_PD.SS7I77M3,_PD.SS7I77M4) or (index == 0):
+                index2 = 0
+            elif pintype in ( _PD.TXDATA0,_PD.RXDATA0,_PD.TXEN0,_PD.TXDATA1,_PD.RXDATA1,_PD.TXEN1,_PD.TXDATA2,_PD.RXDATA2,
+                               _PD.TXEN2,_PD.TXDATA3,_PD.RXDATA3,_PD.TXEN3,_PD.TXDATA4,_PD.RXDATA4,_PD.TXEN4,
+                              _PD.TXDATA5,_PD.RXDATA5,_PD.TXEN5,_PD.TXDATA6,_PD.RXDATA6,_PD.TXEN6,_PD.TXDATA7,_PD.RXDATA7,_PD.TXEN7 ):
+                index2 = 0
+            #print index,index2,signaltocheck[index+index2]
+            self.d[p] = signaltocheck[index+index2]
+            self.d[ptype] = widgetptype
+            self.d[pinv] = self.widgets[pinv].get_active()
+            #if "serial" in p:
+            #    print "*** INFO PNCCONF mesa pin:",p,"signalname:",self.d[p],"pin type:",widgetptype
 
         # **Start widget to data Convertion**                    
         # for encoder pins
