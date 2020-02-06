@@ -5445,7 +5445,7 @@ Clicking 'existing custom program' will aviod this warning. "),False):
                         comptype = value
                         break
                 if value == "Error":
-                    print "**** ERROR PNCCONF: pintype error in make_pinname: (sserial) ptype = ",ptype
+                    print("**** ERROR PNCCONF: pintype error in make_pinname: (sserial) ptype = ",ptype)
                     return None
                 # if gpionumber flag is true - convert to gpio pin name
                 if gpionumber or ptype in(_PD.GPIOI,_PD.GPIOO,_PD.GPIOD,_PD.SSR0):
@@ -5475,7 +5475,7 @@ Clicking 'existing custom program' will aviod this warning. "),False):
                             comptype = "input"
                         return "%s.%s.%d.%d."% (make_name(boardname,halboardnum),subboardname,portnum,channel) + comptype+"-%02d"% (pinnum)
                     else:
-                        print "**** ERROR PNCCONF: subboard name ",subboardname," in make_pinname: (sserial) ptype = ",ptype,pin
+                        print("**** ERROR PNCCONF: subboard name ",subboardname," in make_pinname: (sserial) ptype = ",ptype,pin)
                         return None
                 elif ptype in (_PD.AMP8I20,_PD.POTO,_PD.POTE,_PD.POTD) or prefixonly:
                     return "%s.%s.%d.%d."% (make_name(boardname,halboardnum),subboardname,portnum,channel)
@@ -5492,7 +5492,7 @@ Clicking 'existing custom program' will aviod this warning. "),False):
                     comptype = "enc"
                     return "%s.%s.%d.%d."% (make_name(boardname,halboardnum),subboardname,portnum,channel) + comptype+"%d"% (compnum)
                 else:
-                    print "**** ERROR PNCCONF: pintype error in make_pinname: (sserial) ptype = ",ptype,pin
+                    print("**** ERROR PNCCONF: pintype error in make_pinname: (sserial) ptype = ",ptype,pin)
                     return None
             else:
                 # sample pin name = mesa0c3pin1
@@ -5509,11 +5509,11 @@ Clicking 'existing custom program' will aviod this warning. "),False):
                 for key,value in type_name.iteritems():
                     if key == ptype: comptype = value
                 if value == "Error":
-                    print "**** ERROR PNCCONF: pintype error in make_pinname: (mesa) ptype = ",ptype
+                    print("**** ERROR PNCCONF: pintype error in make_pinname: (mesa) ptype = ",ptype)
                     return None
                 # if gpionumber flag is true - convert to gpio pin name
                 if gpionumber or ptype in(_PD.GPIOI,_PD.GPIOO,_PD.GPIOD,_PD.SSR0):
-                    print '->',ptype,dummy,compnum,pin
+                    print('->',ptype,dummy,compnum,pin)
                     if ptype == _PD.SSR0:
                         compnum -= 100
                         return "%s."% (make_name(boardname,halboardnum)) + "ssr.00.out-%02d"% (compnum)
@@ -5535,20 +5535,20 @@ Clicking 'existing custom program' will aviod this warning. "),False):
                     return "%s."% (make_name(boardname,halboardnum)) + comptype+".%02d"% ((compnum * 2 + num))
 
         elif 'pp' in test:
-            print test
+            print(test)
             ending = "-out"
             test = str(pin) 
-            print  self.d[pin]
+            print(self.d[pin])
             pintype = str(test[4:5])
-            print pintype
+            print(pintype)
             pinnum = int(test[8:])
-            print pinnum
+            print(pinnum)
             connum = int(test[2:3])-1
-            print connum
+            print(connum)
             if pintype == 'I': ending = "-in"
             return "parport."+str(connum)+".pin-%02d"%(pinnum)+ending
         else:
-            print "pintype error in make_pinname: pinname = ",test
+            print("pintype error in make_pinname: pinname = ",test)
             return None
 
 
