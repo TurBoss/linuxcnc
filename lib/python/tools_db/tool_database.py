@@ -23,6 +23,7 @@
 from sqlalchemy import Column, Date, Table, ForeignKey, Boolean, Integer, Integer, Float, Text
 from sqlalchemy.orm import relationship
 from sqlalchemy_utils import Choice, ChoiceType
+
 from .base import Base
 
 
