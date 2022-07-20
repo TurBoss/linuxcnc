@@ -175,6 +175,9 @@ class DataBaseManager():
         # save_tools_to_file(db_savefile)
 
 def init_db():
+    
+    print("creating new sample db", file=sys.stderr)
+    
     tool_db_handler = ToolDBHandler()
     
     tool_db_handler.new_geometry("default geometry")
@@ -188,8 +191,6 @@ def init_db():
     
     for i in range(1, 30+1):
         tool_db_handler.new_tool(f"Tool {i}", i)
-
-
 
 def main():
     
